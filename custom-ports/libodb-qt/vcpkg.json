@@ -1,0 +1,12 @@
+{
+  "name": "libodb-qt",
+  "version": "2.5.0",
+  "description": "ODB library, Qt profile support",
+  "homepage": "https://www.codesynthesis.com/products/odb/",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<changelog xmlns="http://www.codesynthesis.com/xmlns/odb/changelog" database="sqlite" version="1">
+  <changeset version="2">
+    <alter-table name="Task">
+      <add-column name="priority" type="INTEGER" null="false"/>
+    </alter-table>
+  </changeset>
+
+  <model version="1">
+    <table name="User" kind="object">
+      <column name="id" type="INTEGER" null="false"/>
+      <column name="name" type="TEXT" null="false"/>
+      <primary-key auto="true">
+        <column name="id"/>
+      </primary-key>
+    </table>
+    <table name="Task" kind="object">
+      <column name="id" type="INTEGER" null="false"/>
+      <column name="description" type="TEXT" null="false"/>
+      <primary-key auto="true">
+        <column name="id"/>
+      </primary-key>
+    </table>
+  </model>
+</changelog>
