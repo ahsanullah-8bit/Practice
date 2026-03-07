@@ -2,10 +2,13 @@ include(CMakePackageConfigHelpers)
 
 set(VCPKG_POLICY_SKIP_COPYRIGHT_CHECK enabled)
 
-# TODO: Reason we're not using the prebuilt binaries 
+# Reason we're not using the prebuilt binaries provided by the 
+# ODB maintainers is because, the last I used them, I was facing
+# issues with the naming convention used in the debug binaries.
+# pkg-config just couldn't find them.
 if (VCPKG_TARGET_IS_WINDOWS)
-    set(ODB_URL "https://github.com/ahsanullah-8bit/APSS/releases/download/v0.1/libodb-2.5.0-release.zip")
-    set(ODB_URL_DEBUG "https://github.com/ahsanullah-8bit/APSS/releases/download/v0.1/libodb-2.5.0-debug.zip")
+    set(ODB_URL "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-release.zip")
+    set(ODB_URL_DEBUG "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-debug.zip")
 elseif(VCPKG_TARGET_IS_LINUX)
     set(ODB_URL "")
     set(ODB_URL_DEBUG "") # SEE SECTION 1 (below) FOR MORE DETAILS
@@ -54,7 +57,7 @@ foreach(PC_FILE IN LISTS PC_FILES_DEBUG)
     vcpkg_replace_string("${PC_FILE}" "/../../include" "/../../../include" REGEX IGNORE_UNCHANGED)
 endforeach(PC_FILE IN LISTS PC_FILES_DEBUG)
 
-# Section 1: Prebuilt binaries for Windows
+# Section 1: Prebuilt binaries for Windows (by the maintainers)
 # https://codesynthesis.com/download/odb/2.5.0/windows/windows10/x86_64/libodb-2.5.0-x86_64-windows10-msvc17.10-debug.zip
 # https://codesynthesis.com/download/odb/2.5.0/windows/windows10/x86_64/libodb-2.5.0-x86_64-windows10-msvc17.10.zip
 # https://codesynthesis.com/download/odb/2.5.0/windows/windows10/x86_64/libodb-sqlite-2.5.0-x86_64-windows10-msvc17.10-debug.zip
