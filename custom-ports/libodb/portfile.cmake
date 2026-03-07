@@ -44,13 +44,15 @@ file(GLOB PC_FILES_DEBUG "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/*.pc")
 list(APPEND PC_FILES ${PC_FILES_DEBUG})
 foreach(PC_FILE IN LISTS PC_FILES)
     vcpkg_replace_string("${PC_FILE}" "\\\\" "/" IGNORE_UNCHANGED)
-    # vcpkg handles debug differently. It creates a debug folder
-    #   inside the CURRENT_PACKAGES_DIR and moves the bin and lib there
-    #   while sharing the same include and share folders. So, we
-    #   need to update the paths to one folder above.
-    vcpkg_replace_string("${PC_FILE}" "/../../include" "/../../../include" REGEX IGNORE_UNCHANGED)
 endforeach(PC_FILE IN LISTS PC_FILES)
-
+  
+# vcpkg handles debug differently. It creates a debug folder
+#   inside the CURRENT_PACKAGES_DIR and moves the bin and lib there
+#   while sharing the same include and share folders. So, we
+#   need to update the paths to one folder above.
+foreach(PC_FILE IN LISTS PC_FILES_DEBUG)
+    vcpkg_replace_string("${PC_FILE}" "/../../include" "/../../../include" REGEX IGNORE_UNCHANGED)
+endforeach(PC_FILE IN LISTS PC_FILES_DEBUG)
 
 # Section 1: Prebuilt binaries for Windows
 # https://codesynthesis.com/download/odb/2.5.0/windows/windows10/x86_64/libodb-2.5.0-x86_64-windows10-msvc17.10-debug.zip
