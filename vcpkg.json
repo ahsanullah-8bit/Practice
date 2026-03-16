@@ -7,6 +7,24 @@
         {
             "name": "libodb",
             "version>=": "2.5.0"
+        },
+        {
+            "name": "opencv4",
+            "default-features": false,
+            "features": [ "fs", "eigen", "highgui", "jpeg", "png", "win32ui"],
+            "version>=": "4.10.0",
+            "platform": "windows"
+        },
+        {
+            "name": "opencv4",
+            "default-features": false,
+            "features": [ "fs", "eigen", "highgui", "jpeg", "png", "gtk"],
+            "version>=": "4.10.0",
+            "platform": "linux"
+        },
+        {
+            "name": "clipper2",
+            "version>=": "2.0.1"
         }
     ]
 }
