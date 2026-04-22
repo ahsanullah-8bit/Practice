@@ -1,3 +1,7 @@
+/*
+    It's not all written by AI bruh. But it helped in figuring out the right strategy.
+*/
+
 #pragma once
 
 
@@ -64,13 +68,13 @@ inline std::vector<cv::Point2f> unclip_polygon(const std::vector<cv::Point2f> &p
     // DBNet expansion distance formula
     double distance = (area * unclip_ratio) / length;
 
-    // 1. Convert OpenCV points to Clipper2 Path64 with scaling
+    // Convert OpenCV points to Clipper2 Path64 with scaling
     Path64 path;
     for (const auto &pt : polygon) {
         path.push_back(Point64(pt.x * CLIPPER_SCALE, pt.y * CLIPPER_SCALE));
     }
 
-    // 2. Perform Offsetting (Expansion)
+    // Perform Offsetting (Expansion)
     // JoinType::Round prevents "spikes" on sharp corners
     // EndType::Polygon ensures a closed shape
     Paths64 input_paths = {path};
@@ -79,7 +83,7 @@ inline std::vector<cv::Point2f> unclip_polygon(const std::vector<cv::Point2f> &p
     std::vector<cv::Point2f> unclipped;
     if (solution.empty() || solution[0].empty()) return unclipped;
 
-    // 3. Convert back to cv::Point2f and descale
+    // Convert back to cv::Point2f and descale
     for (const auto &pt : solution[0]) {
         unclipped.push_back(cv::Point2f(
             static_cast<float>(pt.x / CLIPPER_SCALE), 
@@ -142,7 +146,6 @@ inline std::vector<box_t> contours_to_boxes(const cv::Mat &binaryMask, const cv:
         auto [min_box, min_side] = get_minimal_box(contour_f);
         if (min_side < MIN_BOX_SIZE) continue;
 
-        // CRITICAL FIX: Use confMap (the float probability map) for scoring
         float score = calculate_box_score(confMap, min_box);
         if (score < boxThresh) continue;
 
@@ -172,6 +175,6 @@ inline std::vector<box_t> extract_text_boxes(const cv::Mat &probMap, const cv::S
     cv::Mat binary_uint8;
     binary.convertTo(binary_uint8, CV_8UC1, 255.0);
 
-    // The second threshold (0.6f) is for the average box score (det_db_box_thresh)
+    // The second threshold (0.6f) is for the average box score (boxThresh)
     return contours_to_boxes(binary_uint8, probMap, origSize, 0.6f, 1.5f);
 }

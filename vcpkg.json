@@ -25,6 +25,10 @@
         {
             "name": "clipper2",
             "version>=": "2.0.1"
+        },
+        {
+            "name": "tbb",
+            "version>=": "2022.3.0#0"
         }
     ]
 }
