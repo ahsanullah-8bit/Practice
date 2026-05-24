@@ -7,55 +7,49 @@ set(VCPKG_POLICY_SKIP_COPYRIGHT_CHECK enabled)
 # issues with the naming convention used in the debug binaries.
 # pkg-config just couldn't find them.
 if (VCPKG_TARGET_IS_WINDOWS)
-    set(ODB_URL "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-release.zip")
-    set(ODB_URL_DEBUG "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-debug.zip")
+    set(ODB_URL "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-libodb-qt-sqlite-win64.zip")
+    set(ODB_SHA512 "abf7ec6ccef2e7b85aad510c221dac50a7ee0a410aedb94ff8158c14f8a07320e9b341659fe9f26264cf6dd75d278a5ecd8adf86b6eaed1004ba47cd835e665c")
 elseif(VCPKG_TARGET_IS_LINUX)
-    set(ODB_URL "")
-    set(ODB_URL_DEBUG "") # SEE SECTION 1 (below) FOR MORE DETAILS
+    if (EXISTS "/etc/os-release")
+        file(READ "/etc/os-release" OS_RELEASE_INFO)
+        if (OS_RELEASE_INFO MATCHES "Ubuntu")
+            # Ubuntu specific
+            message(STATUS "Configuring specifically for Ubuntu")
+            set(ODB_URL "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-libodb-qt-sqlite-ubuntu-24.04.zip")
+            set(ODB_SHA512 "59df1796e4acf44a899ac0aa220fdc8c992aa5042b362969191f0143429c522c780267561ba94d9fd36f4931047e467a95f410c3310494420b423b93b9f83241") # SEE SECTION 1 (below) FOR MORE DETAILS
+        endif()
+    endif()
 endif()
 
 vcpkg_download_distfile(ARCHIVE
     URLS ${ODB_URL}
     FILENAME "libodb-2.5.0.tar.gz"
-    SHA512 e4acf052f0ee4ce825a5775464c8f89da1426934691e47f7c1a7a7e73959731a073ce4a3aaad99b1b44baf5cd93c3a5d542a6df229ee138c2d2ab635a5966d7e
-)
-vcpkg_download_distfile(ARCHIVE_DEBUG
-    URLS ${ODB_URL_DEBUG}
-    FILENAME "libodb-2.5.0-debug.tar.gz"
-    SHA512 e291436b14fbc92cfd19b746ae72388bd8741bb275db893912b01f1706d430d6d29de3f78bea6227e6e0afc0c99a9e3e6eed81e3ece95a983cb19cc63a09f2ac
+    SHA512 ${ODB_SHA512}
 )
 
 vcpkg_extract_source_archive(
     SOURCE_PATH
     ARCHIVE "${ARCHIVE}"
 )
-vcpkg_extract_source_archive(
-    SOURCE_PATH_DEBUG
-    ARCHIVE "${ARCHIVE_DEBUG}"
-)
 
-file(INSTALL "${SOURCE_PATH}/bin" DESTINATION "${CURRENT_PACKAGES_DIR}")
-file(INSTALL "${SOURCE_PATH}/include" DESTINATION "${CURRENT_PACKAGES_DIR}")
-file(INSTALL "${SOURCE_PATH}/lib" DESTINATION "${CURRENT_PACKAGES_DIR}")
-file(INSTALL "${SOURCE_PATH}/share" DESTINATION "${CURRENT_PACKAGES_DIR}")
-file(INSTALL "${SOURCE_PATH_DEBUG}/bin" DESTINATION "${CURRENT_PACKAGES_DIR}/debug")
-file(INSTALL "${SOURCE_PATH_DEBUG}/lib" DESTINATION "${CURRENT_PACKAGES_DIR}/debug")
+file(INSTALL "${SOURCE_PATH}/include/" DESTINATION "${CURRENT_PACKAGES_DIR}/include")
+file(INSTALL "${SOURCE_PATH}/lib/" DESTINATION "${CURRENT_PACKAGES_DIR}/lib")
+file(INSTALL "${SOURCE_PATH}/lib/pkgconfig/" DESTINATION "${CURRENT_PACKAGES_DIR}/lib/pkgconfig")
+if(EXISTS "${SOURCE_PATH}/debug/lib")
+    file(INSTALL "${SOURCE_PATH}/debug/lib/" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib")
+    file(INSTALL "${SOURCE_PATH}/debug/lib/pkgconfig/" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig")
+endif()
 
-file(GLOB PC_FILES "${CURRENT_PACKAGES_DIR}/lib/pkgconfig/*.pc")
-file(GLOB PC_FILES_DEBUG "${CURRENT_PACKAGES_DIR}/debug/lib/pkgconfig/*.pc")
+if(EXISTS "${SOURCE_PATH}/bin/")
+    file(INSTALL "${SOURCE_PATH}/bin/" DESTINATION "${CURRENT_PACKAGES_DIR}/bin")
+endif()
+if(EXISTS "${SOURCE_PATH}/debug/bin/")
+    file(INSTALL "${SOURCE_PATH}/debug/bin/" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/bin")
+endif()
 
-list(APPEND PC_FILES ${PC_FILES_DEBUG})
-foreach(PC_FILE IN LISTS PC_FILES)
-    vcpkg_replace_string("${PC_FILE}" "\\\\" "/" IGNORE_UNCHANGED)
-endforeach(PC_FILE IN LISTS PC_FILES)
-  
-# vcpkg handles debug differently. It creates a debug folder
-#   inside the CURRENT_PACKAGES_DIR and moves the bin and lib there
-#   while sharing the same include and share folders. So, we
-#   need to update the paths to one folder above.
-foreach(PC_FILE IN LISTS PC_FILES_DEBUG)
-    vcpkg_replace_string("${PC_FILE}" "/../../include" "/../../../include" REGEX IGNORE_UNCHANGED)
-endforeach(PC_FILE IN LISTS PC_FILES_DEBUG)
+if(EXISTS "${SOURCE_PATH}/share/")
+    file(INSTALL "${SOURCE_PATH}/share/" DESTINATION "${CURRENT_PACKAGES_DIR}/share/${PORT}")
+endif()
 
 # Section 1: Prebuilt binaries for Windows (by the maintainers)
 # https://codesynthesis.com/download/odb/2.5.0/windows/windows10/x86_64/libodb-2.5.0-x86_64-windows10-msvc17.10-debug.zip

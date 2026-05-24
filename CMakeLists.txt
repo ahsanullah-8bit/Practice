@@ -19,6 +19,6 @@ find_program(PKG_CONFIG_EXECUTABLE NAMES pkgconf pkg-config)
 find_package(PkgConfig REQUIRED)
 
 # Now, each project can find and link against required dependencies.
-add_subdirectory(odb_cpp)       # ODB C++ Library testing
-add_subdirectory(ocr_diff_bin)  # OCR Differential Binarization
-add_subdirectory(tbb_flow_graph)  # Testing oneTBB's parallel_pipeline
+add_subdirectory(odb_cpp)           # ODB C++ Library testing
+add_subdirectory(ocr_diff_bin)      # OCR Differential Binarization
+add_subdirectory(tbb_flow_graph)    # Testing oneTBB's parallel_pipeline
