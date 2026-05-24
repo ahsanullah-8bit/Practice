@@ -16,7 +16,7 @@ elseif(VCPKG_TARGET_IS_LINUX)
             # Ubuntu specific
             message(STATUS "Configuring specifically for Ubuntu")
             set(ODB_URL "https://github.com/ahsanullah-8bit/Practice/releases/download/v0.0/libodb-2.5.0-libodb-qt-sqlite-ubuntu-24.04.zip")
-            set(ODB_SHA512 "59df1796e4acf44a899ac0aa220fdc8c992aa5042b362969191f0143429c522c780267561ba94d9fd36f4931047e467a95f410c3310494420b423b93b9f83241") # SEE SECTION 1 (below) FOR MORE DETAILS
+            set(ODB_SHA512 "1a11e8d292f029ff99115a1cfb899b515524e24de4d69146f383766156fbd00aa1e5e1014421a62d1f302a385f0371ab2ebb439ffce901bd5d1b7f545f920b9e") # SEE SECTION 1 (below) FOR MORE DETAILS
         endif()
     endif()
 endif()
