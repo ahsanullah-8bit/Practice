@@ -1,0 +1,5 @@
+[wokwi]
+version = 1
+firmware = 'build/blink_led.elf'
+elf = 'build/blink_led.elf'
+gdbServerPort = 3333
