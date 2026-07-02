@@ -17,7 +17,7 @@ struct block* block_alloc(size_t n) {
 }
 
 void block_free(struct block *b) {
-    return free(b);
+    free(b);
 }
 
 #define block_data(b) \
