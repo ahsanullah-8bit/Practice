@@ -1,7 +1,7 @@
 
 # CXX
-function(create_cxx_executable target standard files)
-    add_executable(${target} ${files})
+function(create_cxx_executable target standard)
+    add_executable(${target} ${ARGN})
 
     set_target_properties(${target} PROPERTIES 
         CMAKE_CXX_STANDARD ${standard}
@@ -10,8 +10,8 @@ function(create_cxx_executable target standard files)
     )
 endfunction()
 
-function(create_c_executable target standard files)
-    add_executable(${target} ${files})
+function(create_c_executable target standard)
+    add_executable(${target} ${ARGN})
 
     set_target_properties(${target} PROPERTIES 
         CMAKE_C_STANDARD ${standard}
