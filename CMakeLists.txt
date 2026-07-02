@@ -20,8 +20,8 @@ find_package(PkgConfig REQUIRED)
 
 # Now, each project can find and link against required dependencies.
 include(cmake/helpers.cmake)
-add_subdirectory(c99)
-add_subdirectory(cpp11)
+add_subdirectory(modern-c/c99)
+add_subdirectory(modern-cpp/cpp11)
 add_subdirectory(ocr_diff_bin)      # OCR Differential Binarization
 add_subdirectory(odb_cpp)           # ODB C++ Library testing
 add_subdirectory(tbb_flow_graph)    # Testing oneTBB's parallel_pipeline
