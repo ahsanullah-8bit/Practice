@@ -23,6 +23,11 @@
             "platform": "linux"
         },
         {
+            "name": "libsystemd",
+            "version>=": "260.2",
+            "platform": "linux"
+        },
+        {
             "name": "clipper2",
             "version>=": "2.0.1"
         },
