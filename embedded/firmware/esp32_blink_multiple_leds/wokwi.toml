@@ -1,0 +1,5 @@
+[wokwi]
+version = 1
+firmware = 'build/blink_multiple_leds.elf'
+elf = 'build/blink_multiple_leds.elf'
+gdbServerPort = 3333
