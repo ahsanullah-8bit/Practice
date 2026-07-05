@@ -8,8 +8,8 @@
       "cwd": "${workspaceRoot}",
       "MIMode": "gdb",
       "miDebuggerServerAddress": "localhost:3333",
-      "program": "${workspaceRoot}/build/blink_with_button.elf",
-      "miDebuggerPath": "${command:espidf.getToolchainGdb}",
+      "program": "${workspaceFolder}/build/${command:espIdf.getProjectName}.elf",
+      "miDebuggerPath": "${command:espIdf.getToolchainGdb}",
       "setupCommands": [
         {
           "description": "Enable pretty-printing for gdb",
