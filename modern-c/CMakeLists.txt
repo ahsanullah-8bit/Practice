@@ -9,3 +9,7 @@ create_c_executable(restrict_based_copy 99
 create_c_executable(variable_len_array_mat_mul 99
     c99/variable_len_array_mat_mul.c
 )
+
+create_c_executable(compile_time_static_assert 99
+    c99/compile_time_static_assert.c
+)
