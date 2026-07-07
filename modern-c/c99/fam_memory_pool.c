@@ -1,4 +1,18 @@
-// Flexible Array Member (FAM) Memory Pool
+/*
+    Flexible Array Member (FAM) Memory Pool
+
+    Features: flexible array members, malloc, compound literals, `<inttypes.h>`.  
+    Goal: A simple memory pool that allocates variable‑sized blocks using a header with a flexible array member.
+
+    Plan:
+
+    * Design `struct block { size_t size; char data[]; };`.
+    * Write `block_alloc(size_t n)` that calls malloc with the correct offset, a `block_free()` function, and a `block_data()` macro.
+    * Test with different sizes and verify correct offsets using offsetof.
+
+    Notes:
+        * Flexible Array Member: https://en.wikipedia.org/wiki/Flexible_array_member
+*/
 
 #include <assert.h>
 #include <inttypes.h>

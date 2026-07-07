@@ -11,6 +11,7 @@
     * Test with small matrices and verify the result.
 
     Notes:
+        * Matrix Multiplication: https://en.wikipedia.org/wiki/Matrix_multiplication
         * In `double a[static m]`, the static promises the compiler that this pointer will never be
             NULL and will have at least m number of elements.
         * `inline` suggests the compiler to replace the definition in-place of the call, if possible.
