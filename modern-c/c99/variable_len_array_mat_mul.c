@@ -22,12 +22,10 @@
 #include <stdio.h>
 
 static inline void mat_mul(int m, int n, int p, double a[static m][n], double b[static n][p], double c[static m][p]) {
-    for (int i = 0; i < m; ++i) {
-        for (int j = 0; j < p; ++j) {
-            for (int k = 0; k < n; ++k)
+    for (int i = 0; i < m; ++i)
+        for (int k = 0; k < n; ++k)
+            for (int j = 0; j < p; ++j)
                 c[i][j] += a[i][k] * b[k][j];
-        }
-    }
 }
 
 int main() {
