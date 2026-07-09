@@ -8,3 +8,7 @@ create_cxx_executable(smart_ptr_object_pool 11
 create_cxx_executable(lambda_based_signal_slots 11
     cpp11/lambda_based_signal_slots.cpp
 )
+create_cxx_executable(compile_time_math_library 11
+    cpp11/compile_time_math_library.hpp
+    cpp11/compile_time_math_library.cpp
+)
