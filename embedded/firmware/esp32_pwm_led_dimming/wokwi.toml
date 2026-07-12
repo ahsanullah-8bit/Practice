@@ -1,0 +1,5 @@
+[wokwi]
+version = 1
+firmware = 'build/pwm_led_dimming.elf'
+elf = 'build/pwm_led_dimming.elf'
+gdbServerPort = 3333
