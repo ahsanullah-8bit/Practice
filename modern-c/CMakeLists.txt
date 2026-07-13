@@ -13,3 +13,7 @@ create_c_executable(variable_len_array_mat_mul 99
 create_c_executable(compile_time_static_assert 99
     c99/compile_time_static_assert.c
 )
+
+create_c_executable(string_duplicator 99
+    c99/string_duplicator.c
+)
