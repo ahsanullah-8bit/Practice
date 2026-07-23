@@ -13,6 +13,7 @@
 
 #include <functional>
 #include <stddef.h>
+#include <utility>
 #include <vector>
 #include <iostream>
 
@@ -24,9 +25,9 @@ public:
         return true;
     }
     
-    bool emit(Args... args) {
+    bool emit(Args &&...args) {
         for (auto &f : m_slots)
-            f(args...);
+            f(std::forward<Args>(args)...);
 
         return true;
     }
