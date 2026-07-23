@@ -1,4 +1,7 @@
 # C++ 11
+create_cxx_executable(thread_safe_task_queue 11
+    cpp11/thread_safe_task_queue.cpp
+)
 create_cxx_executable(variadic_template_csv_parser 11
     cpp11/variadic_template_csv_parser.cpp
 )
