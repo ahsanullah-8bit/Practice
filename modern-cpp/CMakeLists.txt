@@ -15,3 +15,8 @@ create_cxx_executable(compile_time_math_library 11
     cpp11/compile_time_math_library.hpp
     cpp11/compile_time_math_library.cpp
 )
+
+# C++ 14
+create_cxx_executable(generic_memoizer 14
+    cpp14/generic_memoizer.cpp
+)
