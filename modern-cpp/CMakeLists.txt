@@ -20,3 +20,7 @@ create_cxx_executable(compile_time_math_library 11
 create_cxx_executable(generic_memoizer 14
     cpp14/generic_memoizer.cpp
 )
+
+create_cxx_executable(compile-time_int_seq_utilities 14
+    cpp14/compile-time_int_seq_utilities.cpp
+)
