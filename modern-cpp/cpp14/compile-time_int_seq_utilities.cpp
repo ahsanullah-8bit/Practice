@@ -56,7 +56,7 @@ void tuple_for_each_impl(Func &&f, Tuple&& t, std::index_sequence<I...>) {
 template<typename Func, typename Tuple>
 void tuple_for_each(Func &&f, Tuple&& t) {
 	constexpr std::size_t N = std::tuple_size<std::remove_reference_t<Tuple>>::value; // [5] the linked approach's one answer helped with the std::remove_reference_t
-	detail::tuple_for_each_impl(std::forward<Func>(f), t, detail::make_index_sequence<N>());
+	detail::tuple_for_each_impl(std::forward<Func>(f), std::forward<Tuple>(t), detail::make_index_sequence<N>());
 }
 
 int main() {
