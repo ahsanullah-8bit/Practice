@@ -1,13 +1,23 @@
 cmake_minimum_required(VERSION 3.28)
 
-pkg_check_modules(ODB REQUIRED libodb libodb-qt libodb-sqlite)
+find_package(PkgConfig QUIET)
 
-add_executable(odb_cpp main.cpp models-odb.cxx)
+if (PkgConfig_FOUND)
+    pkg_check_modules(ODB QUIET libodb libodb-sqlite)
 
-message(STATUS "ODB Include Directories: ${ODB_INCLUDE_DIRS}")
-message(STATUS "ODB Library Directories: ${ODB_LIBRARY_DIRS}")
-message(STATUS "ODB Libraries: ${ODB_LIBRARIES}")
+    if (ODB_FOUND)
+        add_executable(odb_cpp main.cpp models-odb.cxx)
 
-target_include_directories(odb_cpp PRIVATE ${ODB_INCLUDE_DIRS})
-target_link_directories(odb_cpp PRIVATE ${ODB_LIBRARY_DIRS})
-target_link_libraries(odb_cpp PRIVATE ${ODB_LIBRARIES})
+        message(STATUS "ODB Include Directories: ${ODB_INCLUDE_DIRS}")
+        message(STATUS "ODB Library Directories: ${ODB_LIBRARY_DIRS}")
+        message(STATUS "ODB Libraries: ${ODB_LIBRARIES}")
+
+        target_include_directories(odb_cpp PRIVATE ${ODB_INCLUDE_DIRS})
+        target_link_directories(odb_cpp PRIVATE ${ODB_LIBRARY_DIRS})
+        target_link_libraries(odb_cpp PRIVATE ${ODB_LIBRARIES})
+    else()
+        message(STATUS "ODB not found, disabling odb_cpp")
+    endif()
+else()
+    message(STATUS "PkgConfig not found, disabling odb_cpp")
+endif()
