@@ -2,6 +2,8 @@ find_package(OpenCV CONFIG QUIET)
 find_package(Clipper2 CONFIG QUIET)
 
 if (OpenCV_FOUND AND Clipper2_FOUND)
+    message(STATUS "Enabling ocr_diff_bin")
+
     add_executable(ocr_diff_bin main.cpp dbpostprocess.hpp)
 
     target_include_directories(ocr_diff_bin PRIVATE ${OpenCV_INCLUDE_DIRS})

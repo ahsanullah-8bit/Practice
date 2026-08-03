@@ -6,6 +6,8 @@ if (PkgConfig_FOUND)
     pkg_check_modules(ODB QUIET libodb libodb-sqlite)
 
     if (ODB_FOUND)
+        message(STATUS "Enabling odb_cpp")
+
         add_executable(odb_cpp main.cpp models-odb.cxx)
 
         message(STATUS "ODB Include Directories: ${ODB_INCLUDE_DIRS}")

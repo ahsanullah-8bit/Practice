@@ -1,6 +1,8 @@
 find_package(TBB CONFIG QUIET)
 
 if (TBB_FOUND)
+    message(STATUS "Enabling tbb_flow_graph")
+
     add_executable(tbb_flow_graph main.cpp)
     target_link_libraries(tbb_flow_graph PRIVATE TBB::tbb)
 else()
