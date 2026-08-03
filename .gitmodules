@@ -1,6 +1,6 @@
 [submodule "ext/modern-cpp-features"]
-	path = ext/modern-cpp-features
+	path = core-cpp/modern-cpp/modern-cpp-features
 	url = https://github.com/AnthonyCalandra/modern-cpp-features.git
 [submodule "ext/modern-c-features"]
-	path = ext/modern-c-features
+	path = core-c/modern-c/modern-c-features
 	url = https://github.com/AnthonyCalandra/modern-c-features.git
