@@ -6,22 +6,27 @@
 
 #include <SFML/Window/VideoMode.hpp>
 
-namespace Tic_Tak_Toe
+namespace tictaktoe
 {
-	GameClass::GameClass() : scene(), window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Tic-Tac-Toe"), renderer() {}
 
-	void GameClass::play()
-	{
-		while (window.isOpen())
-		{
-			scene.update(KeyboardInput::getClickedCell(window));
-			renderer.render(scene, window);
-			//scene.drawToConsole();
+GameClass::GameClass()
+	: scene()
+	, window(sf::VideoMode(sf::Vector2u{WINDOW_WIDTH, WINDOW_HEIGHT}), "Tic-Tac-Toe")
+	, renderer()
+{}
 
-			if (scene.winnerChar != 'N')
-				window.close();
+void GameClass::play()
+{
+	while (window.isOpen()) {
+		scene.update(KeyboardInput::getClickedCell(window));
+		renderer.render(scene, window);
+		//scene.drawToConsole();
 
-			std::this_thread::sleep_for(std::chrono::milliseconds(500));
-		}
+		if (scene.winnerChar != 'N')
+			window.close();
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	}
+}
+
 }

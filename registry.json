@@ -38,6 +38,12 @@
     {
       "name": "asio",
       "version>=": "1.32.0"
+    },
+    {
+      "name": "sfml",
+      "default-features": false,
+      "features": [ "audio", "graphics", "window"],
+      "version>=": "3.0.2"
     }
   ],
   "projects": [
@@ -64,6 +70,12 @@
       "path": "databases/odb_cpp",
       "language": "cpp",
       "dependencies": ["pkgconf", "libodb"]
+    },
+    {
+      "name": "tik_tak_toe_2d",
+      "path": "games/tik_tak_toe_2d",
+      "language": "cpp",
+      "dependencies": ["sfml"]
     },
     {
       "name": "tbb_flow_graph",

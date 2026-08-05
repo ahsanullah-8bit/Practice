@@ -21,5 +21,6 @@ add_subdirectory(core-c/modern-c)
 add_subdirectory(core-cpp/modern-cpp)
 add_subdirectory(computer-vision/ocr_diff_bin)          # OCR Differential Binarization
 add_subdirectory(databases/odb_cpp)                     # ODB C++ Library testing
+add_subdirectory(games/tik_tak_toe_2d)
 add_subdirectory(multithreading/tbb_flow_graph)         # Testing oneTBB's graph
 add_subdirectory(networking/asio_chat_cpp)

@@ -2,7 +2,7 @@
 
 int main()
 {
-	Tic_Tak_Toe::GameClass game;
+	tictaktoe::GameClass game;
 	game.play();
 
 	return 0;
