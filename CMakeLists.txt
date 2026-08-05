@@ -24,3 +24,13 @@ add_subdirectory(databases/odb_cpp)                     # ODB C++ Library testin
 add_subdirectory(games/tic_tak_toe_2d)
 add_subdirectory(multithreading/tbb_flow_graph)         # Testing oneTBB's graph
 add_subdirectory(networking/asio_chat_cpp)
+
+# Copy the compile_commands.json for tools like clangd
+if (CMAKE_EXPORT_COMPILE_COMMANDS)
+    message(STATUS "Copying compile_commands.json")
+    execute_process(
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${CMAKE_BINARY_DIR}/compile_commands.json"
+        "${CMAKE_SOURCE_DIR}/compile_commands.json"
+    )
+endif()
