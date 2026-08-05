@@ -6,7 +6,7 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
     set(VCPKG_BUILD_TYPE "release" CACHE STRING "")
 endif()
 
-project(labs VERSION 1.0)
+project(labs VERSION 1.0 LANGUAGES CXX C)
 
 find_program(PKG_CONFIG_EXECUTABLE
     NAMES pkgconf pkg-config
@@ -21,6 +21,6 @@ add_subdirectory(core-c/modern-c)
 add_subdirectory(core-cpp/modern-cpp)
 add_subdirectory(computer-vision/ocr_diff_bin)          # OCR Differential Binarization
 add_subdirectory(databases/odb_cpp)                     # ODB C++ Library testing
-add_subdirectory(games/tik_tak_toe_2d)
+add_subdirectory(games/tic_tak_toe_2d)
 add_subdirectory(multithreading/tbb_flow_graph)         # Testing oneTBB's graph
 add_subdirectory(networking/asio_chat_cpp)
