@@ -1,8 +1,9 @@
 import os
 import sys
 import json
-import subprocess
 import platform
+import shutil
+import subprocess
 from argparse import ArgumentParser
 
 VCPKG_VERSION = "2026.06.01"
@@ -142,7 +143,7 @@ def list_targets():
         print(f" {i:<4} | {name:<20} | {lang:<6} | {path:<30} | {deps_str}")
         i += 1
 
-def build_target(targets_ids: str, build_type: str):
+def build_target(targets_ids: str, build_type: str, clear: bool = False, clean: bool = False):
     registry = load_registry()
     projects = sorted_projects(registry.get("projects", []))
 
@@ -150,6 +151,8 @@ def build_target(targets_ids: str, build_type: str):
     if not targets:
         print("No valid targets selected to build.")
         sys.exit(1)
+
+    print(f"\nSelected Targets: {", ".join([target.get("name", "") for target in targets])}")
 
     dependencies = resolve_dependencies(targets, registry.get("dependencies", []))
 
@@ -162,9 +165,18 @@ def build_target(targets_ids: str, build_type: str):
     if not os.path.exists(vcpkg_root):
         vcpkg_root = bootstrap_vcpkg()
     toolchain_path = os.path.join(vcpkg_root, "scripts", "buildsystems", "vcpkg.cmake")
-    
-    # run the main CMakeLists.txt with vcpkg
+
     build_dir = f"build/{build_type}"
+    # clear
+    if clear:
+        os.remove(os.path.join(build_dir, "CMakeCache.txt"))
+        shutil.rmtree(os.path.join(build_dir, "CMakeFiles"))
+
+    # clean
+    if clean:
+        shutil.rmtree(os.path.join(build_dir))
+
+    # run the main CMakeLists.txt with vcpkg
     configure_cmds = ["cmake", "-S", ".",
                   "-B", build_dir, 
                   "-G", "Ninja",
@@ -214,6 +226,8 @@ if __name__ == "__main__":
     action_group.add_argument("-l", "--list", action="store_true", help="Lists all possible targets/projects")
     action_group.add_argument("-b", "--build", metavar="TARGET", help="Build a specific target by name")
     # action_group.add_argument("-r", "--run", metavar="TARGET", help="Run a specific target by name, after build")
+    parser.add_argument("-r", "--clear", action="store_true", help="Clear CMake Cache")
+    parser.add_argument("-n", "--clean", action="store_true", help="Clean the build")
     parser.add_argument("-c", "--config", choices=["Debug", "Release", "RelWithDebInfo"], default="Debug", help="Choose the build profile (Default: Debug)")
 
     if len(sys.argv) == 1:
@@ -224,7 +238,11 @@ if __name__ == "__main__":
 
     if args.list:
         list_targets()
-    elif args.build:
-        build_target(args.build, args.config)
+    elif args.build and args.config:
+        build_target(args.build,
+                     args.config,
+                     clear= True if args.clear else False,
+                     clean= True if args.clean else False
+                     )
     # elif args.run:
         # build_target(args.run, args.config)
