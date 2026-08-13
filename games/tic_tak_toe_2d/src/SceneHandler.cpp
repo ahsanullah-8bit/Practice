@@ -72,7 +72,7 @@ void SceneHandler::restart()
 	
 	// Clear the board
 	for (auto& vec : board)
-		vec.clear();
+		std::fill(vec.begin(), vec.end(), ' ');
 }
 
 // Draws the Board
