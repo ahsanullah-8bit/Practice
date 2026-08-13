@@ -95,7 +95,7 @@ void test_non_overlapping(int *arr, size_t n) {
     printf("Non-overlapping basic copy took: %f ms\n", end_timer(&start));
 }
 
-int main() {
+int main(void) {
     int arr[ARRAY_SIZE + 10] = {0};
     for (int i = 0; i < ARRAY_SIZE + 10; ++i)
         arr[i] = i;

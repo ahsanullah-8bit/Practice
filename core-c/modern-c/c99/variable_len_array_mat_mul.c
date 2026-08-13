@@ -29,7 +29,7 @@ static inline void mat_mul(int m, int n, int p, double a[static m][n], double b[
                 c[i][j] += a[i][k] * b[k][j];
 }
 
-int main() {
+int main(void) {
     const int m = 2, n = 3, p = 2;
     double a[m][n];
     double b[n][p];
