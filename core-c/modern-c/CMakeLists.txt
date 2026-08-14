@@ -17,3 +17,8 @@ create_c_executable(compile_time_static_assert 99
 create_c_executable(string_duplicator 99
     c99/string_duplicator.c
 )
+
+# C11
+create_c_executable(generic_swap_macro 11
+    c11/generic_swap_macro.c
+)
